@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="دفترچه‌ی آشپزی شخصی برای نگه‌داری، جست‌وجو و چاپ دستورهای موردعلاقه.">
+  <script>
+    (() => {
+      let savedTheme = "";
+      try { savedTheme = localStorage.getItem("gh-pages-cooking-theme-v1") || ""; } catch (_error) { /* storage may be unavailable */ }
+      const systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = savedTheme === "dark" || savedTheme === "light" ? savedTheme : (systemPrefersDark ? "dark" : "light");
+    })();
+  </script>
+  <title>قاشق‌چوبی | دفتر آشپزی من</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#recipes">رفتن به فهرست دستورها</a>
+  <div class="site-shell">
+    <header class="topbar wrap">
+      <a class="brand" href="#top" aria-label="قاشق‌چوبی، صفحه‌ی اصلی">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M12 27.5c0 6.9 5.4 11.5 12 11.5s12-4.6 12-11.5H12Z" fill="currentColor" opacity=".18"/>
+            <path d="M11 27.5h26c-.6 7.1-5.5 11.3-13 11.3s-12.4-4.2-13-11.3Z" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"/>
+            <path d="M24 26V10.5c0-2.1 1.7-3.8 3.8-3.8h.7a3.1 3.1 0 0 1 0 6.2H26" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+            <path d="M17 18.5c0-1.4 1.1-2.5 2.5-2.5M19 24c0-1.7 1.4-3 3-3" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" opacity=".6"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>قاشق‌چوبی</strong>
+          <small>دفتر آشپزی من</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="ناوبری اصلی">
+        <a href="#recipes">دستورها</a>
+        <a href="#about">درباره‌ی دفترچه</a>
+      </nav>
+
+      <div class="topbar-tools">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="فعال‌کردن تم تاریک" aria-pressed="false" title="تغییر به تم تاریک">
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.2 15.2A8.7 8.7 0 0 1 8.8 3.8 8.8 8.8 0 1 0 20.2 15.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span id="theme-toggle-label">تیره</span>
+        </button>
+        <button class="backup-button" id="backup-button" type="button" aria-label="دانلود نسخه‌ی پشتیبان از دستورها و پسندیده‌ها" title="دانلود نسخه‌ی پشتیبان از دستورها و پسندیده‌ها">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>پشتیبان</span>
+        </button>
+        <input id="import-file" class="visually-hidden" type="file" accept="application/json,.json" aria-label="انتخاب فایل پشتیبان">
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <span class="eyebrow hero-eyebrow"><span class="eyebrow-dot"></span> یک جای دنج برای دستورهای خوشمزه</span>
+          <h1 id="hero-title">غذاهای خوب،<br><em>خاطره می‌سازند.</em></h1>
+          <p class="hero-description">دستورهای دوست‌داشتنی‌ات را یک‌جا نگه‌دار، هر وقت خواستی پیدایشان کن و با خیال راحت دوباره بپز.</p>
+          <div class="hero-actions">
+            <button class="button button-dark" type="button" data-open-add>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              افزودن دستور
+            </button>
+            <a class="button button-light" href="#recipes">دیدن دستورها <span aria-hidden="true">←</span></a>
+          </div>
+          <div class="hero-footnote">
+            <span class="footnote-icon" aria-hidden="true">✳</span>
+            <span>دستورهای خودت روی همین دستگاه می‌مانند؛ بدون حساب کاربری و بدون سرور.</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="تصویرسازی یک بشقاب غذای ایرانی با برنج زعفرانی و خورش انار" role="img">
+          <img src="assets/kitchen-hero.svg" alt="" width="820" height="600">
+          <div class="art-sticker"><span aria-hidden="true">✦</span><span>با عشق<br>دست‌پخت کن</span></div>
+          <div class="art-caption"><span class="caption-line"></span> طعمِ خانه، همیشه ماندنی‌ست</div>
+        </div>
+      </section>
+
+      <section class="recipes-section wrap" id="recipes" aria-labelledby="recipes-title">
+        <div class="section-heading">
+          <div class="section-title-group">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> گنجینه‌ی آشپزخانه</p>
+            <h2 id="recipes-title">امروز چی بپزم؟</h2>
+            <p class="section-subtitle">چند ایده‌ی نمونه برای شروع؛ دستورهای خودت را هم به‌راحتی اضافه کن.</p>
+          </div>
+          <div class="quick-stats" aria-live="polite" aria-label="آمار دفترچه">
+            <div class="stat-item"><strong id="recipe-count">۰</strong><span>دستور</span></div>
+            <span class="stat-divider" aria-hidden="true"></span>
+            <div class="stat-item"><strong id="favorite-count">۰</strong><span>پسندیده</span></div>
+          </div>
+        </div>
+
+        <div class="recipe-controls">
+          <label class="search-box" for="recipe-search">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="recipe-search" type="search" placeholder="دنبال چه غذایی می‌گردی؟" autocomplete="off">
+            <kbd>جست‌وجو</kbd>
+          </label>
+          <button class="favorites-filter" id="favorites-filter" type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 2.75 5.58 6.16.9-4.46 4.35 1.05 6.14L12 17.07l-5.5 2.9 1.05-6.14L3.1 9.48l6.16-.9L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            فقط پسندیده‌ها <span id="favorite-filter-count">۰</span>
+          </button>
+        </div>
+
+        <div class="category-list" id="category-filters" role="group" aria-label="دسته‌بندی دستورها">
+          <button class="category-chip is-active" type="button" data-category-filter="همه" aria-pressed="true">همه</button>
+          <button class="category-chip" type="button" data-category-filter="غذای اصلی" aria-pressed="false">غذای اصلی</button>
+          <button class="category-chip" type="button" data-category-filter="خورش" aria-pressed="false">خورش</button>
+          <button class="category-chip" type="button" data-category-filter="آش و سوپ" aria-pressed="false">آش و سوپ</button>
+          <button class="category-chip" type="button" data-category-filter="غذای سبک" aria-pressed="false">غذای سبک</button>
+          <button class="category-chip" type="button" data-category-filter="دسر" aria-pressed="false">دسر</button>
+        </div>
+
+        <p class="visually-hidden" id="results-status" role="status" aria-live="polite"></p>
+        <ul class="recipe-grid" id="recipe-grid" aria-label="فهرست دستورها"></ul>
+        <div class="empty-state" id="empty-state" hidden>
+          <span class="empty-illustration" aria-hidden="true">⌕</span>
+          <h3 id="empty-title">چیزی پیدا نشد</h3>
+          <p id="empty-description">عبارت دیگری را جست‌وجو کن یا فیلترها را پاک کن.</p>
+          <button class="button button-light" id="clear-filters" type="button">پاک‌کردن فیلترها</button>
+        </div>
+      </section>
+
+      <section class="notebook-note wrap" id="about" aria-labelledby="note-title">
+        <div class="note-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M13 8.5h17l6 6v24H13a3 3 0 0 1-3-3v-24a3 3 0 0 1 3-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M29.5 9v7h6M17 23h14M17 29h14M17 35h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 4v8M22 4v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".55"/></svg>
+        </div>
+        <div class="note-copy">
+          <p class="eyebrow">دفترچه‌ی خودت، دست خودت</p>
+          <h2 id="note-title">دستورهایت فقط برای خودت می‌مانند.</h2>
+          <p>این سایت کاملاً استاتیک است. دستورهای تازه و پسندیده‌ها در مرورگر همین دستگاه ذخیره می‌شوند و به دستگاه دیگری منتقل نمی‌شوند؛ برای جابه‌جایی، از پشتیبان JSON استفاده کن.</p>
+        </div>
+        <div class="note-actions">
+          <button class="button button-dark" type="button" data-open-add>افزودن دستور <span aria-hidden="true">＋</span></button>
+          <button class="text-button" type="button" id="import-button">بازیابی از پشتیبان</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer wrap">
+      <a class="footer-brand" href="#top">قاشق‌چوبی <span aria-hidden="true">✳</span></a>
+      <p>ساخته‌شده برای روزهایی که نمی‌دانی چی بپزی.</p>
+      <a href="#top" class="back-to-top">برگشت به بالا ↑</a>
+    </footer>
+  </div>
+
+  <dialog class="modal add-modal" id="recipe-dialog" aria-labelledby="add-dialog-title">
+    <div class="modal-panel">
+      <div class="modal-heading">
+        <div><p class="eyebrow">چیزی خوشمزه در راه است</p><h2 id="add-dialog-title">یک دستور تازه</h2></div>
+        <button class="icon-button" type="button" data-close="recipe-dialog" aria-label="بستن پنجره">×</button>
+      </div>
+      <p class="modal-intro">دستور دلخواهت را اینجا بنویس؛ فقط در همین مرورگر ذخیره می‌شود.</p>
+      <form id="recipe-form">
+        <div class="form-row form-row-two">
+          <label class="field-label">نام غذا
+            <input name="title" type="text" maxlength="80" placeholder="مثلاً: ماکارونی مامان" required>
+          </label>
+          <label class="field-label">دسته‌بندی
+            <select name="category" required>
+              <option value="غذای اصلی">غذای اصلی</option>
+              <option value="خورش">خورش</option>
+              <option value="آش و سوپ">آش و سوپ</option>
+              <option value="غذای سبک">غذای سبک</option>
+              <option value="دسر">دسر</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row form-row-two compact-row">
+          <label class="field-label">زمان آماده‌سازی <span class="field-unit">دقیقه</span>
+            <input name="time" type="number" min="1" max="999" value="45" required>
+          </label>
+          <label class="field-label">مناسب برای <span class="field-unit">نفر</span>
+            <input name="servings" type="number" min="1" max="99" value="4" required>
+          </label>
+        </div>
+        <label class="field-label">مواد لازم <span class="field-hint">هر مورد را در یک خط بنویس</span>
+          <textarea name="ingredients" rows="5" placeholder="۲ پیمانه برنج&#10;۱ عدد پیاز&#10;نمک و فلفل به مقدار لازم" required></textarea>
+        </label>
+        <label class="field-label">مراحل پخت <span class="field-hint">هر مرحله را در یک خط بنویس</span>
+          <textarea name="steps" rows="5" placeholder="پیاز را خرد و طلایی کن.&#10;مواد را اضافه کن و آرام بپز.&#10;با عشق سرو کن!" required></textarea>
+        </label>
+        <label class="field-label">یادداشت کوتاه <span class="field-hint">اختیاری</span>
+          <input name="description" type="text" maxlength="180" placeholder="مثلاً: با ماست و سبزی خوردن عالی می‌شود.">
+        </label>
+        <div class="form-actions">
+          <button class="button button-dark" type="submit">ذخیره در دفترچه</button>
+          <button class="text-button" type="button" data-close="recipe-dialog">بی‌خیال</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog class="detail-dialog" id="detail-dialog" aria-labelledby="detail-recipe-title">
+    <button class="icon-button detail-close" type="button" data-close="detail-dialog" aria-label="بستن پنجره">×</button>
+    <div id="detail-content"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
